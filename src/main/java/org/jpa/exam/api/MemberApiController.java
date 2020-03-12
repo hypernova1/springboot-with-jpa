@@ -1,14 +1,14 @@
 package org.jpa.exam.api;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.jpa.exam.domain.Member;
 import org.jpa.exam.service.MemberService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +32,17 @@ public class MemberApiController {
         return new CreateMemberResponse(id);
     }
 
+    @PutMapping("/api/v2/members/{id}")
+    public UpdateMemberResponse updateMemberV2(
+            @PathVariable Long id,
+            @RequestBody @Valid UpdateMemberRequest request) {
+
+        memberService.update(id, request.getName());
+        Member findMember = memberService.findOne(id);
+
+        return new UpdateMemberResponse(findMember.getId(), findMember.getName());
+    }
+
     @Data
     static class CreateMemberResponse {
         private Long id;
@@ -43,6 +54,19 @@ public class MemberApiController {
 
     @Data
     static class CreateMemberRequest {
+        private String name;
+    }
+
+    @Data
+    static class UpdateMemberRequest {
+        private String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class UpdateMemberResponse {
+        private Long id;
+        @NotEmpty
         private String name;
     }
 
