@@ -39,4 +39,11 @@ class OrderSimpleApiControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)));
     }
 
+    @Test
+    void getJpqlDto() throws Exception {
+        mockMvc.perform(get("/api/v4/simple-orders"))
+                .andDo(print())
+                .andExpect(jsonPath("$", hasSize(2)));
+    }
+
 }
