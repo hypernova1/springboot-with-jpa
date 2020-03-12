@@ -20,7 +20,14 @@ class OrderSimpleApiControllerTest {
 
     @Test
     void getEntity() throws Exception {
-        mockMvc.perform(get("/api/vi/simple-orders"))
+        mockMvc.perform(get("/api/v1/simple-orders"))
+                .andDo(print())
+                .andExpect(jsonPath("$", hasSize(2)));
+    }
+
+    @Test
+    void getDto() throws Exception {
+        mockMvc.perform(get("/api/v2/simple-orders"))
                 .andDo(print())
                 .andExpect(jsonPath("$", hasSize(2)));
     }
