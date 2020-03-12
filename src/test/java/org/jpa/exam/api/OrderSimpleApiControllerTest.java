@@ -32,4 +32,11 @@ class OrderSimpleApiControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)));
     }
 
+    @Test
+    void getFetchJoin() throws Exception {
+        mockMvc.perform(get("/api/v3/simple-orders"))
+                .andDo(print())
+                .andExpect(jsonPath("$", hasSize(2)));
+    }
+
 }

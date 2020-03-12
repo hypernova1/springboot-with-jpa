@@ -23,7 +23,7 @@ public class MemberApiController {
         return memberService.findMembers();
     }
 
-    @GetMapping("/api/v1/members")
+    @GetMapping("/api/v2/members")
     public Result<List<MemberDto>> memberV2() {
 
         List<Member> findMembers = memberService.findMembers();

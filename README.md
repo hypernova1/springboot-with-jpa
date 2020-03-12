@@ -14,7 +14,8 @@
 ### `@FetchType`을 `Lazy`로 설정하게 되면함 해당 객체를 프록시 객체로 감싸서 넣어 두고 가져다 쓸때 DB에 요청을 함
 
 ### `Entity`와 연관 관계를 맺고 있는 `Entity`가 있다면 조회했을 때 N + 1의 문제가 발생
-* Member 엔티티 안에 Address 엔티티가 있고 Member를 2개 이상 조회해 왔을 때
-* `stream`을 돌려고 한다면 Member 객체가 바뀔 때마다 Adress 를 조회함
-* 1(전체 Member 조회) + N(Member의 수만큼 Address 조회)
-* 연관 관계를 맺고 있는 엔티티가 많을 수록 엄청나게 증가함
+Member 엔티티 안에 Address 엔티티가 있고 Member를 2개 이상 조회해 왔을 때  
+`stream`을 돌려고 한다면 Member 객체가 바뀔 때마다 Adress 를 조회함  
+1(전체 Member 조회) + N(Member의 수만큼 Address 조회)  
+연관 관계를 맺고 있는 엔티티가 많을 수록 엄청나게 증가함  
+ => *Fetch Join(JPQL)을 이용하여 한 방에 가져오자*
