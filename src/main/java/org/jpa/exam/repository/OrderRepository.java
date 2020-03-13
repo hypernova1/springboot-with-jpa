@@ -12,9 +12,17 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o JOIN FETCH o.member m JOIN FETCH o.delivery d")
     List<Order> findAllWithMemberDelivery();
 
-    @Query("SELECT new org.jpa.exam.dto.SimpleOrderQueryDto(o.id, m.name, o.orderDate, o.status, d.address " +
+    @Query("SELECT new org.jpa.exam.dto.SimpleOrderQueryDto(o.id, m.name, o.orderDate, o.status, d.address) " +
             "FROM Order o " +
             "JOIN o.member m " +
             "JOIN o.delivery d")
     List<SimpleOrderQueryDto> findOrderDtos();
+
+    // DISTINCT: DB의 DISTINCT +
+    @Query("SELECT DISTINCT o FROM Order o " +
+            "JOIN FETCH o.member m " +
+            "JOIN FETCH o.delivery d " +
+            "JOIN FETCH  o.orderItems oi " +
+            "JOIN FETCH oi.item i")
+    List<Order> findAllWithItem();
 }

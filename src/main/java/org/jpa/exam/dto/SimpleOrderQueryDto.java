@@ -3,7 +3,6 @@ package org.jpa.exam.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.jpa.exam.domain.Address;
-import org.jpa.exam.domain.Order;
 import org.jpa.exam.domain.OrderStatus;
 
 import java.time.LocalDateTime;
