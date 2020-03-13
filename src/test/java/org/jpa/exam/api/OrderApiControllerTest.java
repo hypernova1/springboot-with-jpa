@@ -40,4 +40,11 @@ class OrderApiControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)));
     }
 
+    @Test
+    void getFetchDto3_1() throws Exception {
+        mockMvc.perform(get("/api/v3.1/orders?offset=0&limit=10"))
+                .andDo(print())
+                .andExpect(jsonPath("$", hasSize(2)));
+    }
+
 }

@@ -7,7 +7,10 @@ import org.jpa.exam.domain.Order;
 import org.jpa.exam.domain.OrderItem;
 import org.jpa.exam.domain.OrderStatus;
 import org.jpa.exam.repository.OrderRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -46,6 +49,16 @@ public class OrderApiController {
     @GetMapping("/api/v3/orders")
     public List<OrderDto> orderV3() {
         return orderRepository.findAllWithItem()
+                .stream()
+                .map(OrderDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/api/v3.1/orders")
+    public List<OrderDto> orderV3_page(@RequestParam(defaultValue = "0") int offset,
+                                       @RequestParam(defaultValue = "100") int limit) {
+
+        return orderRepository.findAllWithMemberDelivery(PageRequest.of(offset, limit))
                 .stream()
                 .map(OrderDto::new)
                 .collect(Collectors.toList());
