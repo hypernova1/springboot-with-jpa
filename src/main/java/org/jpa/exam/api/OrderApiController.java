@@ -7,6 +7,8 @@ import org.jpa.exam.domain.Order;
 import org.jpa.exam.domain.OrderItem;
 import org.jpa.exam.domain.OrderStatus;
 import org.jpa.exam.repository.OrderRepository;
+import org.jpa.exam.repository.query.OrderQueryDto;
+import org.jpa.exam.repository.query.OrderQueryRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
     @GetMapping("/api/v1/orders")
     public List<Order> ordersV1() {
@@ -62,6 +65,11 @@ public class OrderApiController {
                 .stream()
                 .map(OrderDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> ordersV4() {
+        return orderQueryRepository.findOrderQueryDtos();
     }
 
     @Getter
