@@ -7,6 +7,7 @@ import org.jpa.exam.domain.Order;
 import org.jpa.exam.domain.OrderItem;
 import org.jpa.exam.domain.OrderStatus;
 import org.jpa.exam.repository.OrderRepository;
+import org.jpa.exam.repository.query.OrderFlatDto;
 import org.jpa.exam.repository.query.OrderQueryDto;
 import org.jpa.exam.repository.query.OrderQueryRepository;
 import org.springframework.data.domain.Page;
@@ -75,6 +76,11 @@ public class OrderApiController {
     @GetMapping("/api/v5/orders")
     public List<OrderQueryDto> ordersV5() {
         return orderQueryRepository.findAllByDto_optimization();
+    }
+
+    @GetMapping("/api/v6/orders")
+    public List<OrderFlatDto> ordersV6() {
+        return orderQueryRepository.findAllByDto_flat();
     }
 
     @Getter
