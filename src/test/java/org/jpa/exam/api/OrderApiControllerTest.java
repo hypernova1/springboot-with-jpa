@@ -54,4 +54,11 @@ class OrderApiControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)));
     }
 
+    @Test
+    void getDtoV5() throws Exception {
+        mockMvc.perform(get("/api/v5/orders"))
+                .andDo(print())
+                .andExpect(jsonPath("$", hasSize(2)));
+    }
+
 }
